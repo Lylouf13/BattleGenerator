@@ -1,0 +1,70 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
+.board{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.boardLine{
+  display: flex;
+  max-height: 50px;
+  align-items: center;
+}
+
+.square, .empoweredSquare, .coreSquare, .blueStart, .redStart{
+  height: 50px;
+  width: 50px;
+  border:1px;
+  border-style: solid;
+
+  transition: all 1s;
+}
+
+.square:hover, .empoweredSquare:hover, .coreSquare:hover, .blueStart:hover, .redStart:hover{
+  background-color: aqua;
+}
+
+.empoweredSquare{
+  background-color: hsl(143, 25%, 50%);
+}
+
+.coreSquare{
+  background-color: rgb(122, 245, 188);
+}
+
+.blueStart{
+  background-color: rgb(115, 173, 173);
+}
+
+.redStart{
+  background-color: rgb(212, 132, 132);
+}
+
+.startPoint{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.token{
+  height: 40px;
+  width: 40px;
+  border-radius: 100px;
+
+  transition: all 0.5s;
+}
+
+.token:hover{
+  background-color: brown;
+}
