@@ -83,12 +83,12 @@ function Square(value, type){
 }
 function RedStart(value, type){
   return(
-    <button className="redStart"> <Token red={true}> </Token></button>
+    <button className="redStart"> <Token team='red'> </Token></button>
     );
 }
 function BlueStart(value, type){
   return(
-      <button className="blueStart"> <Token red={false}></Token> </button>
+      <button className="blueStart"> <Token team='blue'></Token> </button>
     );
 }
 function EmpoweredSquare(value, type){
@@ -101,19 +101,35 @@ function CoreSquare(value, type){
     <button className="coreSquare"></button>
     );
 }
-function Token(red,onTokenClick){
-  let selected =false;
+function Token(team){
+  const[selected, setSelected] = useState(false);
+  const[health, setHealth] = useState(2);
 
-  onclick={onTokenClick};
+  function handleClick(){
+    setSelected(true);
+  }
 
   return(
-    <button className="token"></button>
+    <button className="token" onClick={handleClick}></button>
     );
 }
-function Status(){
-function SetValue(setValue){
+function Status() {
+  const [status, setStatus] = useState('red')
 
-}
+  function handleClick(){
+    if (status == 'red'){
+      setStatus('blue');
+    }
+    else{
+      setStatus('red');  
+    }
+  }
+  return(
+  <div>
+  <p> {status} </p>
+  <button onClick={handleClick}> Swap Turn</button>
+  </div>
+)
 }
 function Game(){
 
