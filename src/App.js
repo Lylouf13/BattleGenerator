@@ -1,12 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { getQueriesForElement, queryAllByTitle, queryByText } from '@testing-library/react';
 
 function Board(){
 
-  function GetPosition(index){
-    return Square(index).property
+
+  
+  function GetRedStartPosition()
+  {
+    let startPoints = document.querySelectorAll('redStart');
+    console.log(startPoints);
   }
+
+  GetRedStartPosition();
+
   return(
     <div className='board'>
       <div className='boardLine'>
@@ -19,7 +27,9 @@ function Board(){
         <Square index="6"></Square>
       </div>
       <div className='boardLine'>
-        <RedStart index="7"></RedStart>
+        <RedStart index="7">
+          <Token team='red'></Token>
+        </RedStart>
         <Square index="8"></Square>
         <Square index="9"></Square>
         <Square index="10"></Square>
@@ -28,7 +38,9 @@ function Board(){
         <BlueStart index="13"></BlueStart>
       </div>
       <div className='boardLine'>
-        <RedStart index="14"></RedStart>
+        <RedStart index="14">
+          <Token team='red'></Token>
+        </RedStart>
         <Square index="15"></Square>
         <EmpoweredSquare index="16"></EmpoweredSquare>
         <EmpoweredSquare index="17"></EmpoweredSquare>
@@ -37,7 +49,9 @@ function Board(){
         <BlueStart index="20"></BlueStart>
       </div>
       <div className='boardLine'>
-        <RedStart index="21"></RedStart>
+        <RedStart index="21">
+          <Token team='red'></Token>
+        </RedStart>
         <Square index="22"></Square>
         <EmpoweredSquare index="23"></EmpoweredSquare>
         <CoreSquare index="24"></CoreSquare>
@@ -46,7 +60,9 @@ function Board(){
         <BlueStart value="27"></BlueStart>
       </div>
       <div className='boardLine'>
-        <RedStart index="28"></RedStart>
+        <RedStart index="28">
+          <Token team='red'></Token>
+        </RedStart>
         <Square index="29"></Square>
         <EmpoweredSquare index="30"></EmpoweredSquare>
         <EmpoweredSquare index="31"></EmpoweredSquare>
@@ -55,7 +71,9 @@ function Board(){
         <BlueStart index="34"></BlueStart>
       </div>
       <div className='boardLine'>
-        <RedStart index="35"></RedStart>
+        <RedStart index="35">
+          <Token team='red'></Token>
+        </RedStart>        
         <Square index="36"></Square>
         <Square index="37"></Square>
         <Square index="38"></Square>
@@ -72,23 +90,36 @@ function Board(){
         <Square index="47"></Square>
         <Square index="48"></Square>
       </div>
+      <div className="tokens">
+      <Token team='red'></Token>
+      <Token team='red'></Token>
+      <Token team='red'></Token>
+      <Token team='red'></Token>
+      <Token team='red'></Token>
+
+      <Token team='blue'></Token>
+      <Token team='blue'></Token>
+      <Token team='blue'></Token>
+      <Token team='blue'></Token>
+      <Token team='blue'></Token>
+      </div>
     </div>
   )
 }
-
 function Square(value, type){
   return(
     <button className="square"></button>
     );
 }
-function RedStart(value, type){
+function RedStart(index){
+
   return(
-    <button className="redStart"> <Token team='red'> </Token></button>
+    <button className="redStart"></button>
     );
 }
 function BlueStart(value, type){
   return(
-      <button className="blueStart"> <Token team='blue'></Token> </button>
+      <button className="blueStart"></button>
     );
 }
 function EmpoweredSquare(value, type){
@@ -101,16 +132,26 @@ function CoreSquare(value, type){
     <button className="coreSquare"></button>
     );
 }
-function Token(team){
+function Token(team, startPosition, startPositionX, startPositionY){
   const[selected, setSelected] = useState(false);
   const[health, setHealth] = useState(2);
+  const[position, updatePosition] = useState({x:0, y:0});
+  const[tokenColor, updateColor] = useState('white');
 
   function handleClick(){
     setSelected(true);
+    updateColor('green')
   }
 
+
   return(
-    <button className="token" onClick={handleClick}></button>
+    <button className="token" onClick={handleClick} 
+    style={{
+      transform: `translate(${position.x}px, ${position.y}px)`,  
+      backgroundColor: tokenColor,
+    }
+    }>
+    </button>
     );
 }
 function Status() {
@@ -141,9 +182,6 @@ function Game(){
       this.selected=true;
       setSelected(!tokenSelected);
     }
-
-  
-
   }
   function MoveToken(tokenToMove, squareToGo){
 
